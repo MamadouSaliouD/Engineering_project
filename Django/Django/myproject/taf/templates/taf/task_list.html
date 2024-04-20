@@ -1,0 +1,112 @@
+{% extends "taf/general.html" %}
+
+{% block title %}
+  Task management app - List of all your tasks
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Task List</h1>
+
+    <p><a href="{% url 'task_list' %}">Task List</a></p>
+
+    <div class="task-list">
+      <h2>Your Tasks</h2>
+      <ul>
+        {% for t in tasks %}
+          <li>
+            <div class="task-info">
+              <a href="details/{{ t.id }}">{{ t.title }}</a>
+              <span class="created-on">{{ t.created_on }}</span>
+            </div>
+            <div class="actions">
+              <a href="{% url 'delete_task' pk=t.id %}" class="delete-link">Delete</a>
+              <a href="{% url 'edit_task' pk=t.id %}" class="delete-link">Edit</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a href="{% url 'create_task' %}" class="add-task-link">Add Task</a>
+      <a href="{% url 'signup_page' %}" class="sign-up-link">Log Out</a>
+    </div>
+  </div>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-inline-size: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+    a {
+      text-decoration: none; 
+       
+    }
+
+    .task-list {
+      margin-block-start: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #f9f9f9;
+      margin-block-end: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .task-info {
+      flex-grow: 1;
+    }
+
+    .created-on {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .actions {
+      text-align: end;
+    }
+
+    .delete-link {
+      color: #e74c3c;
+      text-decoration: none;
+      margin-inline-start: 10px;
+    }
+
+    .add-task-link, .sign-up-link, .logout-link {
+      display: inline-block;
+      margin-block-start: 20px;
+      padding: 10px;
+      color: #fff;
+      text-decoration: none;
+      background-color: #3498db;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .add-task-link:hover, .sign-up-link:hover, .logout-link:hover {
+      background-color: #2980b9;
+    }
+  </style>
+{% endblock %}
